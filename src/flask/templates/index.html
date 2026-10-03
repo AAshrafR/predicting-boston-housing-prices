@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HomeVal AI · Boston Housing</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- Header -->
+        <header class="hero">
+
+            <div class="eyebrow">
+                <span class="status-dot"></span>
+                MACHINE LEARNING MODEL
+            </div>
+
+            <h1>
+                Predict the value.
+                <span>Understand the data.</span>
+            </h1>
+
+            <p>
+                Enter three property characteristics and let the
+                Boston Housing model estimate the median home value.
+            </p>
+
+        </header>
+
+
+        <!-- Main Application -->
+        <section class="prediction-card">
+
+            <!-- Left Side -->
+            <div class="input-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <span class="section-label">
+                            INPUT FEATURES
+                        </span>
+
+                        <h2>
+                            Property details
+                        </h2>
+                    </div>
+
+                    <div class="feature-count">
+                        03
+                    </div>
+
+                </div>
+
+
+                <form action="/" method="POST">
+
+                    <!-- RM -->
+                    <div class="input-group">
+
+                        <div class="input-heading">
+
+                            <div class="input-title">
+                                <span class="input-number">
+                                    01
+                                </span>
+
+                                Average rooms
+                            </div>
+
+                            <span class="feature-code">
+                                RM
+                            </span>
+
+                        </div>
+
+                        <div class="input-wrapper">
+
+                            <svg
+                                class="input-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+
+                            <input
+                                type="number"
+                                name="rm"
+                                id="rm"
+                                step="0.1"
+                                min="1"
+                                max="12"
+                                placeholder="6.50"
+                                required
+                            >
+
+                            <span class="input-unit">
+                                rooms
+                            </span>
+
+                        </div>
+
+                        <span class="input-description">
+                            Average number of rooms per dwelling.
+                        </span>
+
+                    </div>
+
+
+                    <!-- LSTAT -->
+                    <div class="input-group">
+
+                        <div class="input-heading">
+
+                            <div class="input-title">
+                                <span class="input-number">
+                                    02
+                                </span>
+
+                                Lower-status population
+                            </div>
+
+                            <span class="feature-code">
+                                LSTAT
+                            </span>
+
+                        </div>
+
+                        <div class="input-wrapper">
+
+                            <svg
+                                class="input-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <circle cx="12" cy="7" r="4"/>
+                                <path d="M5.5 21a8.38 8.38 0 0 1 13 0"/>
+                            </svg>
+
+                            <input
+                                type="number"
+                                name="lstat"
+                                id="lstat"
+                                step="0.1"
+                                min="0"
+                                max="40"
+                                placeholder="12.50"
+                                required
+                            >
+
+                            <span class="input-unit">
+                                %
+                            </span>
+
+                        </div>
+
+                        <span class="input-description">
+                            Percentage of lower-status population.
+                        </span>
+
+                    </div>
+
+
+                    <!-- PTRATIO -->
+                    <div class="input-group">
+
+                        <div class="input-heading">
+
+                            <div class="input-title">
+                                <span class="input-number">
+                                    03
+                                </span>
+
+                                Pupil-teacher ratio
+                            </div>
+
+                            <span class="feature-code">
+                                PTRATIO
+                            </span>
+
+                        </div>
+
+                        <div class="input-wrapper">
+
+                            <svg
+                                class="input-icon"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                            >
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+                            </svg>
+
+                            <input
+                                type="number"
+                                name="ptratio"
+                                id="ptratio"
+                                step="0.1"
+                                min="10"
+                                max="25"
+                                placeholder="18.50"
+                                required
+                            >
+
+                            <span class="input-unit">
+                                ratio
+                            </span>
+
+                        </div>
+
+                        <span class="input-description">
+                            Number of students per teacher.
+                        </span>
+
+                    </div>
+
+
+                    {% if error %}
+                    <div class="error-message">
+                        <span>!</span>
+                        {{ error }}
+                    </div>
+                    {% endif %}
+
+
+                    <!-- Submit -->
+                    <button
+                        type="submit"
+                        class="predict-button"
+                    >
+
+                        <span>
+                            Run prediction
+                        </span>
+
+                        <span class="button-icon">
+
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                            >
+                                <line
+                                    x1="5"
+                                    y1="12"
+                                    x2="19"
+                                    y2="12"
+                                />
+
+                                <polyline
+                                    points="12 5 19 12 12 19"
+                                />
+                            </svg>
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+                <div class="model-info">
+
+                    <span class="info-icon">
+                        ML
+                    </span>
+
+                    <div>
+                        <strong>Boston Housing Model</strong>
+                        <span>Prediction generated from trained model</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Right Side -->
+            <div class="result-panel">
+
+                <!-- Decorative grid -->
+                <div class="grid-background"></div>
+
+
+                <div class="result-content">
+
+                    <div class="result-top">
+
+                        <span class="section-label">
+                            MODEL OUTPUT
+                        </span>
+
+                        <span class="live-badge">
+                            <span></span>
+                            READY
+                        </span>
+
+                    </div>
+
+
+                    <div class="result-title">
+                        Estimated home value
+                    </div>
+
+
+                    {% if prediction_text %}
+
+                        <div class="prediction-value">
+                            {{ prediction_text }}
+                        </div>
+
+                        <div class="prediction-status">
+                            <span class="check-icon">✓</span>
+                            Prediction generated successfully
+                        </div>
+
+                    {% else %}
+
+                        <div class="prediction-value empty">
+                            —
+                        </div>
+
+                        <div class="prediction-status waiting">
+                            Waiting for property inputs
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- Visualization -->
+                    <div class="visual-card">
+
+                        <div class="visual-header">
+
+                            <span>
+                                Prediction overview
+                            </span>
+
+                            <span class="visual-tag">
+                                ML
+                            </span>
+
+                        </div>
+
+
+                        <div class="visual-content">
+
+                            <div class="chart">
+
+                                <div class="chart-line"></div>
+
+                                <div class="chart-point point-1"></div>
+                                <div class="chart-point point-2"></div>
+                                <div class="chart-point point-3"></div>
+                                <div class="chart-point point-4"></div>
+                                <div class="chart-point point-5"></div>
+
+                            </div>
+
+                            <div class="chart-labels">
+                                <span>Features</span>
+                                <span>Model</span>
+                                <span>Prediction</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-footer">
+
+                        <div class="footer-item">
+                            <span class="footer-label">
+                                FEATURES
+                            </span>
+
+                            <strong>
+                                03
+                            </strong>
+                        </div>
+
+                        <div class="footer-divider"></div>
+
+                        <div class="footer-item">
+                            <span class="footer-label">
+                                MODEL
+                            </span>
+
+                            <strong>
+                                REGRESSION
+                            </strong>
+                        </div>
+
+                        <div class="footer-divider"></div>
+
+                        <div class="footer-item">
+                            <span class="footer-label">
+                                STATUS
+                            </span>
+
+                            <strong class="active">
+                                ACTIVE
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="page-footer">
+            <span>Boston Housing Price Prediction</span>
+            <span>·</span>
+            <span>Machine Learning Project</span>
+        </footer>
+
+    </main>
+
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
